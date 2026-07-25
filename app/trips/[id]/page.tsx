@@ -71,6 +71,10 @@ function TripDetailInner() {
       setTrip(updated);
       // refresh global active trip
       await refreshActiveTrips();
+
+      if (action === "complete") {
+        router.replace("/trips/new");
+      }
     } catch (err) {
       setActionError(err instanceof Error ? err.message : "Action failed");
     } finally {

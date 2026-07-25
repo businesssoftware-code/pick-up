@@ -41,8 +41,6 @@ export function DriverLiveTripPanel({
 }: DriverLiveTripPanelProps) {
   const mapRef = useRef<google.maps.Map | null>(null);
 
-  const polylineRef = useRef<google.maps.LatLng[]>([]);
-
   const { isLoaded } = useJsApiLoader({
     id: "driver-live-map",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
@@ -93,10 +91,9 @@ export function DriverLiveTripPanel({
       return [];
     }
 
-    polylineRef.current = google.maps.geometry.encoding.decodePath(
-      liveLocation.polyline,
-    );
+    return google.maps.geometry.encoding.decodePath(liveLocation.polyline);
   }, [isLoaded, liveLocation?.polyline]);
+
   console.log(polylinePath, "polylinePathpolylinePath");
   const initialCenter = useMemo(
     () => ({
@@ -117,12 +114,8 @@ export function DriverLiveTripPanel({
     [liveLocation?.latitude, liveLocation?.longitude],
   );
 
-console.log({
-  hasLiveLocation: !!liveLocation,
-  polyline: liveLocation?.polyline,
-  decoded: polylinePath?.length,
-}, "sdjhfkhgkfkfgh");
-  
+  const isTripLoading = !isLoaded || !liveLocation || polylinePath.length === 0;
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
       {/* Header */}
@@ -140,6 +133,17 @@ console.log({
 
       {/* Map */}
       <div className="relative flex-1 min-h-[400px]">
+        {isTripLoading && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/70 backdrop-blur-sm">
+            <div className="flex flex-col items-center gap-3">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-neutral-300 border-t-blue-600" />
+              <p className="text-sm font-medium text-neutral-600">
+                Loading live route...
+              </p>
+            </div>
+          </div>
+        )}
+
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
@@ -160,7 +164,7 @@ console.log({
             {/* Route */}
             {/* {polylinePath.length > 0 && ( */}
             <Polyline
-              path={polylineRef.current}
+              path={polylinePath}
               options={{
                 strokeColor: "#2563EB",
                 strokeOpacity: 0.9,
