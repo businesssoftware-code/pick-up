@@ -44,7 +44,6 @@ function NewTripInner() {
     pickupOutletId > 0 &&
     dropOutletId > 0 &&
     vehicleId > 0 &&
-    tripDate !== "" &&
     pickupOutletId !== dropOutletId;
 
   async function handleSubmit(e: React.FormEvent) {
