@@ -2,49 +2,44 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { RequireAuth, useAuth } from "../../context/AuthContext";
-import { tripsApi } from "../../api/trips.api";
-import { lookupsApi } from "../../api/lookups.api";
+import { useAuth } from "../../../context/AuthContext";
+import { tripsApi } from "../../../api/trips.api";
 import type {
   CreateTripPayload,
   Outlet,
   TripOutlet,
   Vehicle,
-} from "../../libs/types";
+} from "../../../libs/types";
 
-function NewTripInner() {
+type TypeOfPageProps = {
+  outletsProp: TripOutlet[];
+  vehiclesProp: Vehicle[];
+};
+
+export default function MainPage({
+  outletsProp,
+  vehiclesProp,
+}: TypeOfPageProps) {
   const router = useRouter();
-  const [outlets, setOutlets] = useState<TripOutlet[]>([]);
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  const [outlets] = useState<TripOutlet[]>(outletsProp);
+  const [vehicles] = useState<Vehicle[]>(vehiclesProp);
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const [pickupOutletId, setPickupOutletId] = useState(0);
   const [dropOutletId, setDropOutletId] = useState(0);
-  const [vehicleId, setVehicleId] = useState(0);
-  const [tripDate, setTripDate] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [vehicleId, setVehicleId] = useState(0);  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const { driverId } = useAuth();
 
   useEffect(() => {
-    Promise.all([lookupsApi.getOutlets(), lookupsApi.getVehicles()])
-      .then(([o, v]) => {
-        setOutlets(o);
-        setVehicles(v);
-
-        detectNearestOutlet(o);
-      })
-      .catch((err) => {
-        setLoadError(err instanceof Error ? err.message : "Failed to load");
-      });
-  }, []);
+    detectNearestOutlet(outletsProp);
+  }, [outletsProp]);
 
   const isValid =
     pickupOutletId > 0 &&
     dropOutletId > 0 &&
     vehicleId > 0 &&
-    tripDate !== "" &&
     pickupOutletId !== dropOutletId;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -247,13 +242,5 @@ function Field({
       </span>
       {children}
     </label>
-  );
-}
-
-export default function NewTripPage() {
-  return (
-    <RequireAuth>
-      <NewTripInner />
-    </RequireAuth>
   );
 }

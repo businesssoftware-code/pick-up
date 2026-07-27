@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { RequireAuth, useAuth } from "../context/AuthContext";
-import { useTripTracking } from "../context/TripTrackingContext";
+import { RequireAuth, useAuth } from "../../context/AuthContext";
+import { useTripTracking } from "../../context/TripTrackingContext";
 
-import { tripsApi } from "../api/trips.api";
-import { StatusPill } from "../components/StatusPill";
+import { tripsApi } from "../../api/trips.api";
+import { StatusPill } from "../../components/StatusPill";
 
-import type { Trip } from "../libs/types";
+import type { Trip } from "../../libs/types";
 
 const dateFmt = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",

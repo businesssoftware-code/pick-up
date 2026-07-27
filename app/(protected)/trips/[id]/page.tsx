@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { RequireAuth } from "../../context/AuthContext";
-import { tripsApi } from "../../api/trips.api";
-import { useTripTracking } from "../../context/TripTrackingContext";
-import { useLocationBroadcast } from "../../hooks/useLocationBroadcast";
-import { StatusPill } from "../../components/StatusPill";
-import type { Trip } from "../../libs/types";
-import { DriverLiveTripPanel } from "../../components/DriverLiveTripPanel";
+import { RequireAuth } from "../../../context/AuthContext";
+import { tripsApi } from "../../../api/trips.api";
+import { useTripTracking } from "../../../context/TripTrackingContext";
+import { useLocationBroadcast } from "../../../hooks/useLocationBroadcast";
+import { StatusPill } from "../../../components/StatusPill";
+import type { Trip } from "../../../libs/types";
+import { DriverLiveTripPanel } from "../../../components/DriverLiveTripPanel";
 
 const dateFmt = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",
