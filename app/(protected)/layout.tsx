@@ -1,6 +1,6 @@
 "use client";
 
-import { RequireAuth } from "../../context/AuthContext";
+import { RequireAuth } from "../context/AuthContext";
 
 
 export default function ProtectedLayout({

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { RequireAuth, useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useTripTracking } from "../../context/TripTrackingContext";
 
 import { tripsApi } from "../../api/trips.api";
@@ -191,8 +191,6 @@ function TripsListInner() {
 
 export default function TripsPage() {
   return (
-    <RequireAuth>
       <TripsListInner />
-    </RequireAuth>
   );
 }
