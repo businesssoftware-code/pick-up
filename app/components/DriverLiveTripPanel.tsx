@@ -227,7 +227,7 @@ export function DriverLiveTripPanel({
       {/* Telemetry */}
       <div className="grid grid-cols-3 divide-x divide-neutral-800 bg-neutral-900 text-white">
         <Telemetry
-          label="ETA"
+          label="ETR"
           value={
             liveLocation?.remainingTimeMinutes != null
               ? `${Math.round(liveLocation.remainingTimeMinutes)} min`

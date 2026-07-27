@@ -139,7 +139,7 @@ function TripsListInner() {
         )}
       </div>
 
-      {activeTrips.length > 0 && (
+      {activeTrips?.length > 0 && (
         <div className="fixed bottom-6 left-4 right-4 space-y-3">
           {activeTrips.map((trip) => {
             const liveLocation = liveLocations.get(trip.id);
@@ -159,20 +159,21 @@ function TripsListInner() {
                     </p>
                   </div>
 
-                  <div className="text-right text-sm">
+                  
+                </div>
+                <div className="flex items-center justify-between text-sm">
                     <p>
                       {liveLocation?.remainingDistanceKm != null
-                        ? `${liveLocation.remainingDistanceKm.toFixed(1)} km`
+                        ? `Distance - ${liveLocation.remainingDistanceKm.toFixed(1)} km`
                         : "--"}
                     </p>
 
                     <p>
                       {liveLocation?.remainingTimeMinutes != null
-                        ? `${Math.round(liveLocation.remainingTimeMinutes)} min`
+                        ? `ETR - ${Math.round(liveLocation.remainingTimeMinutes)} min`
                         : "--"}
                     </p>
                   </div>
-                </div>
               </Link>
             );
           })}
@@ -181,7 +182,7 @@ function TripsListInner() {
 
       <Link
         href="/trips/new"
-        className="fixed bottom-24 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-2xl text-white shadow-lg active:scale-95"
+        className="fixed bottom-24 right-6 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-2xl text-secondary shadow-lg active:scale-95"
       >
         +
       </Link>
