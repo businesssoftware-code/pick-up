@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { RequireAuth } from "../../../context/AuthContext";
 import { tripsApi } from "../../../api/trips.api";
 import { useTripTracking } from "../../../context/TripTrackingContext";
 import { useLocationBroadcast } from "../../../hooks/useLocationBroadcast";
@@ -203,8 +202,8 @@ function Row({ label, value }: { label: string; value?: string }) {
 
 export default function TripDetailPage() {
   return (
-    <RequireAuth>
+    <>
       <TripDetailInner />
-    </RequireAuth>
+    </>
   );
 }
