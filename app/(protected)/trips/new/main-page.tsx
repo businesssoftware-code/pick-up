@@ -10,6 +10,7 @@ import type {
   TripOutlet,
   Vehicle,
 } from "../../../libs/types";
+import { getErrorMessage } from "../../../libs/axios";
 
 type TypeOfPageProps = {
   outletsProp: TripOutlet[];
@@ -61,7 +62,7 @@ export default function MainPage({
       const created = await tripsApi.create(payload);
       router.replace(`/trips/${created.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create trip");
+      setError(getErrorMessage(err));
     } finally {
       setSubmitting(false);
     }

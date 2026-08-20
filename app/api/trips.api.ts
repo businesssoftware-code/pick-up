@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { privateApi } from '../libs/axios';
 import { PaginatedTrips, type CreateTripPayload, type Trip, type TripStatus } from '../libs/types';
 
@@ -30,3 +31,6 @@ export const tripsApi = {
   markReached: (id: number) => tripsApi.updateStatus(id, 'REACHED_DESTINATION'),
   completeTrip: (id: number) => tripsApi.updateStatus(id, 'complete'),
 };
+
+
+

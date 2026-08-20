@@ -11,6 +11,8 @@ export default function Page() {
   const outlets = use(outletsPromise);
   const vehicles = use(vehiclesPromise);
 
+  console.log(vehicles, "vehiclesvehicles");
+
   return (
     <MainPage
       outletsProp={outlets}
