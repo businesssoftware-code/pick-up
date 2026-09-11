@@ -178,7 +178,7 @@ function TripDetailInner() {
           disabled={actionLoading}
           className="w-full rounded-xl bg-primary py-3 text-base font-medium text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {actionLoading ? "Updating…" : "I've reached"}
+          {"I've reached"}
         </button>
       )}
 
