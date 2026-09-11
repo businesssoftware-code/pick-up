@@ -172,8 +172,8 @@ function TripDetailInner() {
         </button>
       )}
 
-      {trip.status === "IN_TRANSIT" ||
-        (trip.status === "STARTED" && (
+      {(trip.status === "IN_TRANSIT" ||
+        trip.status === "STARTED") && (
           <button
             onClick={() => handleAction("complete")}
             disabled={actionLoading}
@@ -181,7 +181,7 @@ function TripDetailInner() {
           >
             {"I've reached"}
           </button>
-        ))}
+        )}
 
       {(trip.status === "COMPLETED" || trip.status === "CANCELLED") && (
         <p className="text-center text-sm text-neutralText">
