@@ -172,15 +172,16 @@ function TripDetailInner() {
         </button>
       )}
 
-      {trip.status === "IN_TRANSIT" && (
-        <button
-          onClick={() => handleAction("complete")}
-          disabled={actionLoading}
-          className="w-full rounded-xl bg-primary py-3 text-base font-medium text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          {"I've reached"}
-        </button>
-      )}
+      {trip.status === "IN_TRANSIT" ||
+        (trip.status === "STARTED" && (
+          <button
+            onClick={() => handleAction("complete")}
+            disabled={actionLoading}
+            className="w-full rounded-xl bg-primary py-3 text-base font-medium text-white transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {"I've reached"}
+          </button>
+        ))}
 
       {(trip.status === "COMPLETED" || trip.status === "CANCELLED") && (
         <p className="text-center text-sm text-neutralText">
