@@ -11,6 +11,7 @@ import type {
   Vehicle,
 } from "../../../libs/types";
 import { getErrorMessage } from "../../../libs/axios";
+import SearchableSelect from "../../../components/searchableSeclect";
 
 type TypeOfPageProps = {
   outletsProp: TripOutlet[];
@@ -28,7 +29,8 @@ export default function MainPage({
 
   const [pickupOutletId, setPickupOutletId] = useState(0);
   const [dropOutletId, setDropOutletId] = useState(0);
-  const [vehicleId, setVehicleId] = useState(0);  const [error, setError] = useState<string | null>(null);
+  const [vehicleId, setVehicleId] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const { driverId } = useAuth();
@@ -155,53 +157,31 @@ export default function MainPage({
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <Field label="From outlet">
-          <select
+          <SearchableSelect
             value={pickupOutletId}
-            onChange={(e) => setPickupOutletId(Number(e.target.value))}
-            className="select"
-          >
-            {outlets.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.name}
-              </option>
-            ))}
-          </select>
+            options={outlets}
+            placeholder="Search outlet..."
+            onChange={setPickupOutletId}
+          />
         </Field>
 
         <Field label="To outlet">
-          <select
-            value={dropOutletId || ""}
-            onChange={(e) => setDropOutletId(Number(e.target.value))}
-            className="select"
-          >
-            <option value="" disabled>
-              Select drop outlet
-            </option>
-            {outlets.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.name}
-              </option>
-            ))}
-          </select>
+          <SearchableSelect
+            value={dropOutletId}
+            options={outlets}
+            placeholder="Search outlet..."
+            onChange={setDropOutletId}
+          />
         </Field>
 
         <Field label="Vehicle">
-          <select
-            value={vehicleId || ""}
-            onChange={(e) => setVehicleId(Number(e.target.value))}
-            className="select"
-          >
-            <option value="" disabled>
-              Select vehicle
-            </option>
-            {vehicles
-              .filter((v) => v.isActive)
-              .map((v) => (
-                <option key={v.id} value={v.id}>
-                  {v.vehicleNumber}
-                </option>
-              ))}
-          </select>
+          <SearchableSelect
+            value={vehicleId}
+            options={vehicles.filter((v) => v.isActive)}
+            placeholder="Search vehicle..."
+            onChange={setVehicleId}
+            isVehicle
+          />
         </Field>
 
         {/* <Field label="Date & time">
