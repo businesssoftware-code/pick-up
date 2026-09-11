@@ -127,6 +127,8 @@ export default function MainPage({
     );
   }
 
+  console.log(vehicles, "vehiclesvehicles");
+
   return (
     <div className="min-h-screen px-5 py-6">
       <button
