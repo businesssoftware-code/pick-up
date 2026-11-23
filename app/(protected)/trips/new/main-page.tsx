@@ -159,7 +159,9 @@ export default function MainPage({
         <Field label="From outlet">
           <SearchableSelect
             value={pickupOutletId}
-            options={outlets}
+            options={outlets?.filter(
+              (el) => !el.name.startsWith("Training and Development"),
+            )}
             placeholder="Search outlet..."
             onChange={setPickupOutletId}
           />
@@ -168,7 +170,9 @@ export default function MainPage({
         <Field label="To outlet">
           <SearchableSelect
             value={dropOutletId}
-            options={outlets}
+            options={outlets?.filter(
+              (el) => !el.name.startsWith("Training and Development"),
+            )}
             placeholder="Search outlet..."
             onChange={setDropOutletId}
           />
